@@ -1,10 +1,10 @@
-import { BDPBO3Page } from './app.po';
+import { Bdpbo3Page } from './app.po';
 
 describe('bdpbo3 App', function() {
-  let page: BDPBO3Page;
+  let page: Bdpbo3Page;
 
   beforeEach(() => {
-    page = new BDPBO3Page();
+    page = new Bdpbo3Page();
   });
 
   it('should display message saying app works', () => {

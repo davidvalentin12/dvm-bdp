@@ -1,0 +1,87 @@
+<div class="widgets">
+  <div class="row">
+    <div class="col-lg-6 col-md-6">
+      <ba-card title="Basic Info"
+               baCardClass="with-scroll table-panel">
+        <div class="horizontal-scroll">
+          <!--    RECIPE FORM    -->
+
+          <form>
+            <div class="form-group">
+              <input type="text"
+                     name="name"
+                     class="form-control"
+                     placeholder="Name"
+                     [(ngModel)]="currentRecipe.name">
+            </div>
+            <div class="form-group">
+              <textarea type="text"
+                        name="description"
+                        class="form-control"
+                        placeholder="Description"
+                        [(ngModel)]="currentRecipe.description"></textarea>
+            </div>
+            <button class="btn"
+                    (click)="addTitleAndDescription(currentRecipe.name,currentRecipe.description )">Add
+            </button>
+          </form>
+
+        </div>
+      </ba-card>
+      <ba-card title="Steps"
+               baCardClass="with-scroll table-panel">
+        <div class="horizontal-scroll">
+          <!--    RECIPE FORM    -->
+          <form>
+            <div class="form-group">
+              <input type="text"
+                     name="title"
+                     class="form-control"
+                     placeholder="Title"
+                     [(ngModel)]="currentStep.title">
+            </div>
+            <div class="form-group">
+              <textarea type="text"
+                        name="description"
+                        class="form-control"
+                        placeholder="Description"
+                        [(ngModel)]="currentStep.description"></textarea>
+            </div>
+            <div class="form-group">
+
+              <label for="timerType">Timer</label>
+              <select class="form-control"
+                      id="timerType"
+                      name="timer"
+                      [(ngModel)]="currentStep.timer">
+                <option *ngFor="let option of timerOptions"
+                        [ngValue]="option.value">{{option.label}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group" *ngIf="currentStep.timer!==undefined">
+              <label for="timerTime">Time (seconds)</label>
+              <input class="form-control"
+                     type="number"
+                     id="timerTime"
+                     name="timerTime"
+                     min="0"
+
+                     [(ngModel)]="currentStep.timerTime">
+            </div>
+          </form>
+        </div>
+        <button class="btn"
+                (click)="addStep(currentStep)">Add
+        </button>
+      </ba-card>
+      <ingredients-edit ></ingredients-edit>
+
+
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+      <recipe-display [recipe]="recipe"></recipe-display>
+    </div>
+  </div>
+</div>

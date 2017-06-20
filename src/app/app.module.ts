@@ -1,20 +1,74 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {NgModule, ApplicationRef, ModuleWithProviders} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
+import {RouterModule} from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
 
-import { AppComponent } from './app.component';
+//AUTH
+import {AuthService, JwtService} from './shared/services';
+import {AuthGuard} from './shared/services/auth.guard'
 
+import {provideClient} from './shared/apollo/client';
+import {ApolloModule} from 'apollo-angular';
+
+/*
+ * Platform and Environment providers/directives/pipes
+ */
+import {routing} from './app.routing';
+
+// App is our top level component
+import {App} from './app.component';
+import {AppState, InternalStateType} from './app.service';
+import {GlobalState} from './global.state';
+import {NgaModule} from './theme/nga.module';
+import {PagesModule} from './pages/pages.module';
+
+const apolloRouting: ModuleWithProviders = ApolloModule.forRoot(provideClient);
+
+// Application wide providers
+const APP_PROVIDERS = [
+  AppState,
+  GlobalState,
+  AuthService,
+  JwtService,
+  AuthGuard
+];
+
+export type StoreType = {
+  state: InternalStateType,
+  restoreInputValues: () => void,
+  disposeOldHosts: () => void
+};
+
+/**
+ * `AppModule` is the main entry point into Angular2's bootstraping process
+ */
 @NgModule({
+  bootstrap: [App],
   declarations: [
-    AppComponent
+    App
   ],
-  imports: [
+  imports: [ // import Angular's modules
     BrowserModule,
+    HttpModule,
+    RouterModule,
     FormsModule,
-    HttpModule
+    ReactiveFormsModule,
+    NgaModule.forRoot(),
+    NgbModule.forRoot(),
+    PagesModule,
+    routing,
+    apolloRouting
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ // expose our Services and Providers into Angular's dependency injection
+    APP_PROVIDERS
+  ]
 })
-export class AppModule { }
+
+export class AppModule {
+
+  constructor(public appState: AppState) {
+  }
+}

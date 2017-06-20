@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class BDPBO3Page {
+export class Bdpbo3Page {
   navigateTo() {
     return browser.get('/');
   }

@@ -1,0 +1,49 @@
+<ba-card title="Recipe Preview"
+         baCardClass="with-scroll table-panel">
+  <div class="horizontal-scroll">
+    <div>
+      <h4>{{recipe.name}}</h4>
+
+      <p>{{recipe.description}}</p>
+    </div>
+    <div>
+      <h4>Steps:</h4>
+      <ol class="blur"
+          *ngIf="recipe.steps.length>0">
+        <li *ngFor="let step of recipe.steps; let i = index">
+          <div>
+            <label>Title:</label>
+            <span>{{step.title}}</span>
+          </div>
+          <div>
+            <label>Description:</label>
+            <span>{{step.description}}</span>
+          </div>
+          <div *ngIf="step.timer">
+            <label>Timer:</label>
+            <span>{{step.timer}}</span>
+            //
+            <label>Seconds:</label>
+            <span>{{step.timerTime}}</span>
+          </div>
+          <button class="btn btn-danger"
+                  type="button"
+                  (click)="removeStep(i)">Remove Step {{i+1}}
+          </button>
+          <button class="btn btn-default btn-icon"
+                  (click)="stepUp(i)"
+                  [disabled]="i-1<0"
+                  type="button">
+            <i class="ion-chevron-up"></i>
+          </button>
+          <button class="btn btn-default btn-icon"
+                  (click)="stepDown(i)"
+                  [disabled]="(i+1)>=recipe.steps.length"
+                  type="button">
+            <i class="ion-chevron-down"></i>
+          </button>
+        </li>
+      </ol>
+    </div>
+  </div>
+</ba-card>
