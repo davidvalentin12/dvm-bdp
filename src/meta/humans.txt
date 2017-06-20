@@ -3,12 +3,10 @@
 
 # TEAM
 
-  akveo.com
+bdp
 
 # THANKS
 
-  <name>
-  Akveo Team
 
 # TECHNOLOGY COLOPHON
 
